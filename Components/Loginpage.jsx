@@ -1,25 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import supabase from './supa_config';
 
-function LoginPage() {
+function LoginPage({navigation}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-
+  useEffect(() => {
+    const authListener = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (event === "SIGNED_IN") {
+          console.log("User signed in successfully");
+          navigation.navigate("Dash");
+        } else if (event === "SIGNED_OUT") {
+          console.log("User signed out");
+        }
+      }
+    );
+  
+   
+  }, []);
+  
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleLogin = () => {
+  const handleLogin = async() => {
     // Here you can implement your login logic, for simplicity let's just check if fields are empty
     if (!username || !password) {
       setErrorMessage('Please enter both username and password.');
     } else {
-      // Implement your actual login logic here
-      // For example, you might send an API request to authenticate the user
-      console.log('Logging in...');
+      console.log("hi");
+      try
+      {
+        const { data } = await supabase.auth.signInWithPassword({
+          email: username,
+          password: password,
+        })
+        if(data)
+        alert("logged in");
+    }
+    catch(e)
+            {
+                console.log(e);
+            }
     }
   };
 
