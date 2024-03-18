@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
+    "@react-navigation/native-stack": "^6.9.25",
     "@supabase/supabase-js": "^2.39.8",
     "expo": "^49.0.23",
     "expo-status-bar": "~1.11.1",
