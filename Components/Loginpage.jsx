@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { StyleSheet,Text, View, TextInput, Button } from 'react-native';
+import supabase from './supa_config';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
