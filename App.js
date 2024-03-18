@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import {Loginpage,Signup} from './Components';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Loginpage,DashboardScreen,MindCare,Dr_chat} from './Components';
+import {Loginpage,Signup,DashboardScreen,MindCare,Dr_chat} from './Components';
 function SignupPage() {
   return (
     <View style={styles.container}>

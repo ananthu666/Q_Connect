@@ -1,16 +1,14 @@
 import React, { useState,useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-<<<<<<< HEAD
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Signup from './index'
-function LoginPage({ navigation }) {
-=======
 import supabase from './supa_config';
 
 function LoginPage({navigation}) {
->>>>>>> fa0a011c5e2dee385bddcb14e3c041c5386daabc
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -26,17 +24,11 @@ function LoginPage({navigation}) {
         }
       }
     );
-<<<<<<< HEAD
 
 
   }, []);
 
-=======
-  
-   
-  }, []);
-  
->>>>>>> fa0a011c5e2dee385bddcb14e3c041c5386daabc
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -46,12 +38,7 @@ function LoginPage({navigation}) {
     if (!username || !password) {
       setErrorMessage('Please enter both username and password.');
     } else {
-<<<<<<< HEAD
-      // Implement your actual login logic here
-      // For example, you might send an API request to authenticate the user
-      console.log('Logging in...');
-=======
->>>>>>> fa0a011c5e2dee385bddcb14e3c041c5386daabc
+
       console.log("hi");
       try
       {
