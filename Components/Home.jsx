@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Linking } from 'react-native';
+import scrapeNews from './ScrapeNews'; // Import the scrapeNews function
 
-const NewsBox = ({ title, description, link, onPress }) => (
+const NewsBox = ({ title, link, onPress }) => (
   <TouchableOpacity style={styles.newsBox} onPress={() => onPress(link)}>
     <Text style={styles.title}>{title}</Text>
-    <Text style={styles.description}>{description}</Text>
+    <Text style={styles.link}>{link}</Text>
   </TouchableOpacity>
 );
 
 const NewsList = ({ newsData, onPress }) => (
-  <FlatList
+  <FlatList 
     data={newsData}
     renderItem={({ item }) => (
       <NewsBox
         title={item.headline}
-        // description={item.link}
         link={item.link}
         onPress={onPress}
       />
@@ -24,15 +24,23 @@ const NewsList = ({ newsData, onPress }) => (
 );
 
 const NewsScreen = () => {
-  const newsData = [
-    { id: 1, headline: 'News 1', link: 'https://www.example.com/news1' },
-    { id: 2, headline: 'News 2', link: 'https://www.example.com/news2' },
-    { id: 3, headline: 'News 3', link: 'https://www.example.com/news3' },
-    // Add more news data as needed
-  ];
+  const [newsData, setNewsData] = useState([]);
+
+  useEffect(() => {
+    fetchNews();
+  }, []);
+
+  const fetchNews = () => {
+    scrapeNews()
+      .then(data => {
+        setNewsData(data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   const handleNewsPress = (link) => {
-    // Open the link in the browser
     Linking.openURL(link);
   };
 
@@ -56,15 +64,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 20,
     marginBottom: 10,
-    elevation: 2, // Add shadow effect
+    elevation: 2,
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
   },
-  description: {
+  link: {
     fontSize: 16,
+    color: 'blue',
   },
 });
 
