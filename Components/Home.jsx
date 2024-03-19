@@ -44,28 +44,28 @@ const NewsScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-  },
-  newsBox: {
-    width: '100%',
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 20,
-    marginBottom: 10,
-    elevation: 2, // Add shadow effect
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  description: {
-    fontSize: 16,
-  },
-});
-
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 10,
+    },
+    newsBox: {
+      width: '100%',
+      backgroundColor: '#fff',
+      borderRadius: 0, // Increased border radius
+      padding: 20, // Increased padding
+      marginBottom: 20, // Increased margin bottom
+      elevation: 2, // Add shadow effect
+    },
+    title: {
+      fontSize: 20, // Increased font size
+      fontWeight: 'bold',
+      marginBottom: 10, // Increased margin bottom
+    },
+    description: {
+      fontSize: 18, // Increased font size
+    },
+  });
+  
 export default NewsScreen;
