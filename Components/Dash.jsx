@@ -1,14 +1,15 @@
-import React, { useState,useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet ,Button} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Button} from 'react-native';
 import MindCare from './MindCare';
 import Room from './Room';
+import Home from './Home';
 import supabase from './supa_config';
 
-const DashboardScreen = ({navigation}) => {
+const DashboardScreen = ({ navigation }) => {
   const [activeTab, setActiveTab] = useState('Home');
-  const handleLogout =async()=>{
-    
-const { error } = await supabase.auth.signOut()
+  const handleLogout = async () => {
+
+    const { error } = await supabase.auth.signOut()
   }
   useEffect(() => {
     const authListener = supabase.auth.onAuthStateChange(
@@ -16,29 +17,29 @@ const { error } = await supabase.auth.signOut()
         if (event === "SIGNED_OUT") {
           alert("User logout  successfully");
           navigation.navigate("Login");
-        } 
+        }
       }
     );
     // Clean up the listener
-    
+
 
   }, []);
   const renderTabContent = () => {
     switch (activeTab) {
       case 'MindCare':
-        return <MindCare navigation={navigation}/>;
+        return <MindCare navigation={navigation} />;
       case 'Rooms':
-        return <Room navigation={navigation}/>;
-      //case 'Home':
-        //return <Home navigation={navigation}/>;
-    //   case 'Map':
-    //     return <MapTab />;
-    //   case 'Notifications':
-    //     return <NotificationsTab />;
-    //   case 'Settings':
-    //     return <SettingsTab />;
-    //   default:
-    //     return <HomeTab />;
+        return <Room navigation={navigation} />;
+      case 'Home':
+        return <Home navigation={navigation} />;
+      //   case 'Map':
+      //     return <MapTab />;
+      //   case 'Notifications':
+      //     return <NotificationsTab />;
+      //   case 'Settings':
+      //     return <SettingsTab />;
+      //   default:
+      //     return <HomeTab />;
     }
   };
 
@@ -46,8 +47,8 @@ const { error } = await supabase.auth.signOut()
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Q Dashboard</Text>
-        <TouchableOpacity  onPress={handleLogout}>
-        <Text style={styles.btn}>Logout</Text>
+        <TouchableOpacity onPress={handleLogout}>
+          <Text style={styles.btn}>Logout</Text>
 
         </TouchableOpacity>
       </View>
@@ -64,15 +65,15 @@ const { error } = await supabase.auth.signOut()
         >
           <Text style={styles.tabText}>MindCare Connect</Text>
         </TouchableOpacity>
-        
-        
+
+
         <TouchableOpacity
           style={[styles.tab, activeTab === 'Rooms' && styles.activeTab]}
           onPress={() => setActiveTab('Rooms')}
         >
           <Text style={styles.tabText}>Rooms</Text>
         </TouchableOpacity>
-        
+
       </View>
       <View style={styles.content}>
         {renderTabContent()}
@@ -120,8 +121,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  btn:{
-    
+  btn: {
+
     backgroundColor: '#FF9B50',
     paddingVertical: 6,
     paddingHorizontal: 8,
@@ -129,15 +130,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     flexDirection: 'row',
     alignItems: 'flex-end',
-    
+
     color: 'white',
     fontWeight: 'bold',
     width: 70,
 
-    
+
     // marginRight: 10,
-    
-    
+
+
 
   }
 });
