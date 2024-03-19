@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import supabase from './supa_config';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Signup from './index'
-import supabase from './supa_config';
 
-function LoginPage({ navigation }) {
+function DrLogin({ navigation }) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -18,21 +17,18 @@ function LoginPage({ navigation }) {
       const authListener = supabase.auth.onAuthStateChange(
         (event, session) => {
           if (event === "SIGNED_IN") {
-            console.log("User signed in successfully");
-            navigation.navigate("Dash");
+            console.log("Doctor signed in successfully");
+            navigation.navigate("DoctorDashboard");
           }
-
         }
-
       );
       // Clean up the listener
+      return () => authListener.data.unsubscribe();
     }
     catch (e) {
       console.log(e);
     }
-
-  }, []);
-
+  }, [navigation]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -49,7 +45,7 @@ function LoginPage({ navigation }) {
           password: password,
         })
         if (data)
-          alert("logged in");
+          alert("Doctor logged in");
       }
       catch (e) {
         console.log(e);
@@ -60,7 +56,7 @@ function LoginPage({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.loginBox}>
-        <Text style={styles.title}>Welcome to our LGBTQ+ Community</Text>
+        <Text style={styles.title}>Doctor Login</Text>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Username:</Text>
           <TextInput
@@ -91,22 +87,17 @@ function LoginPage({ navigation }) {
         </View>
         {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
         <View style={styles.buttonContainer}>
-          <Button title="Login" onPress={handleLogin} />
-          <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-            <Text style={styles.link}>Sign Up</Text>
+          <Button title="Login" onPress={handleLogin} color="#FF3EA5" />
+          <TouchableOpacity onPress={() => navigation.navigate('DrSignup')}>
+            <Text style={styles.link}>Doctor Sign Up</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity style={[styles.links, { backgroundColor: 'black' }]} >
-            <Button title="Dr Login" color='#FF3EA5'  onPress={() => navigation.navigate('DrLogin')}/>
-          </TouchableOpacity>
-
         </View>
       </View>
     </View>
   );
 }
 
-export default LoginPage;
+export default DrLogin;
 
 const styles = StyleSheet.create({
   container: {
@@ -118,7 +109,7 @@ const styles = StyleSheet.create({
   loginBox: {
     width: '90%',
     maxWidth: 400,
-    backgroundColor: 'rgba(127,39,255,0.9)',
+    backgroundColor: '#4B0082', // Indigo color
     borderRadius: 10,
     padding: 20,
   },
@@ -146,14 +137,9 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.2)', // Semi-transparent background
   },
-  passwordInputContainer: { 
+  passwordInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  passwordInput: {
-    flex: 1,
-    color: '#fff',
-    padding: 8,
   },
   iconContainer: {
     position: 'absolute',
@@ -173,8 +159,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
   },
-  links: {
-    marginTop: 10,
-
-  }
 });

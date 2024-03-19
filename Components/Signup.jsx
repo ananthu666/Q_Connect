@@ -108,11 +108,11 @@ function Signup({ navigation }) {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={styles.drbtn}>
+            {/*<View style={styles.drbtn}>
                 <TouchableOpacity >
                     <Button title="Dr.Signup" onPress={drSignup} color="#C683D7" />
                 </TouchableOpacity>
-            </View>
+    </View>*/}
         </ScrollView>
     );
 }

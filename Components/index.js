@@ -7,7 +7,7 @@ export {default as MindCare} from './MindCare';
 export {default as Dr_chat} from './Dr_chat';
 export {default as Room} from './Room';
 export {default as Room_chat} from './Room_chat';
-
+export {default as DrLogin} from './DrLogin';
 
 
 

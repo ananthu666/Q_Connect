@@ -8,7 +8,7 @@ function DrSignup({ navigation }) {
     const [password, setPassword] = useState('');
     const [specialization, setSpecialization] = useState('');
     const [hospitalName, setHospitalName] = useState('');
-    const [contactNumber, setContactNumber] = useState('');
+   
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleSignup = async () => {
@@ -36,7 +36,7 @@ function DrSignup({ navigation }) {
                             password: password,
                             specialization: specialization,
                             hospital_name: hospitalName,
-                            contact_number: contactNumber,
+                            
                         });
     
                     if (error) {
@@ -109,23 +109,13 @@ function DrSignup({ navigation }) {
                         placeholderTextColor="#fff"
                     />
                 </View>
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Contact Number:</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={contactNumber}
-                        onChangeText={setContactNumber}
-                        placeholder="Enter your contact number"
-                        placeholderTextColor="#fff"
-                        keyboardType="phone-pad"
-                    />
-                </View>
+                
                 {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
                 <View style={styles.buttonContainer}>
                     <Button title="Signup" onPress={handleSignup} color="#41C9E2" />
                 </View>
                 <View style={styles.loginLinkContainer}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('DrLogin')}>
                         <Text style={styles.link}>Already have an account? Login</Text>
                     </TouchableOpacity>
                 </View>
@@ -146,9 +136,10 @@ const styles = StyleSheet.create({
     formContainer: {
         width: '90%',
         maxWidth: 400,
-        backgroundColor: 'rgba(127, 39, 255, 0.9)',
+        backgroundColor: '#4B0082',
         padding: 20,
         borderRadius: 10,
+        
     },
     title: {
         fontSize: 30,
@@ -179,7 +170,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     buttonContainer: {
-        marginTop: 20,
+        marginTop: 1,
         width: '100%',
     },
     loginLinkContainer: {
