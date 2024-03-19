@@ -1,11 +1,28 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet ,Button} from 'react-native';
 import MindCare from './MindCare';
 import Room from './Room';
-import Home from './Home';
+import supabase from './supa_config';
+
 const DashboardScreen = ({navigation}) => {
   const [activeTab, setActiveTab] = useState('Home');
+  const handleLogout =async()=>{
+    
+const { error } = await supabase.auth.signOut()
+  }
+  useEffect(() => {
+    const authListener = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (event === "SIGNED_OUT") {
+          alert("User logout  successfully");
+          navigation.navigate("Login");
+        } 
+      }
+    );
+    // Clean up the listener
+    
 
+  }, []);
   const renderTabContent = () => {
     switch (activeTab) {
       case 'MindCare':
@@ -28,7 +45,11 @@ const DashboardScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Expo Dashboard</Text>
+        <TouchableOpacity  onPress={handleLogout}>
+        <Text style={styles.btn}>Logout</Text>
+
+        </TouchableOpacity>
+        <Text style={styles.headerText}>Q Dashboard</Text>
       </View>
       <View style={styles.tabs}>
         <TouchableOpacity
@@ -97,6 +118,25 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
+  btn:{
+    
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 15,
+    textAlign: 'center',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    
+    color: 'white',
+    fontWeight: 'bold',
+    width: 100,
+
+    marginLeft: 300,
+    // marginRight: 10,
+    
+    
+
+  }
 });
 
 export default DashboardScreen;
