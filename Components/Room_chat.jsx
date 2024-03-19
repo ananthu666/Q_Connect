@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { View, TextInput, FlatList, Text, TouchableOpacity, StyleSheet } from "react-native";
 import  supabase  from './supa_config';
-
+import { MaterialIcons } from '@expo/vector-icons';
 const Dr_chat = ({ route }) => {
   const flatListRef = useRef();
   const { s_id, room_id } = route.params;
@@ -113,9 +113,15 @@ const Dr_chat = ({ route }) => {
           value={newMessage}
           onChangeText={setNewMessage}
           placeholder="Type your message..."
+          onKeyPress={({ nativeEvent }) => {
+            if (nativeEvent.key === 'Enter') {
+              sendMessage();
+            }
+          }}
         />
+        
         <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
-          <Text style={{ color: "white" }}>Send</Text>
+          <MaterialIcons name="send" size={24} color="blue" />
         </TouchableOpacity>
       </View>
     </View>
@@ -129,11 +135,15 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   userMessage: {
-    alignSelf: "flex-end",
+   alignSelf: "flex-end",
+    
+    maxWidth: '90%',
+    minWidth: 50,
     backgroundColor: "#DCF8C5",
     padding: 10,
     marginVertical: 5,
     borderRadius: 8,
+   // alignItems: "flex-end",
   },
   otherMessage: {
     alignSelf: "flex-start",
@@ -152,16 +162,18 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     borderWidth: 1,
+    
     borderColor: "#CCCCCC",
-    borderRadius: 20,
+    borderRadius: 10,
     paddingHorizontal: 15,
+    paddingVertical: 10,
     marginRight: 10,
   },
   sendButton: {
-    backgroundColor: "#007AFF",
-    borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    //backgroundColor: "#007AFF",
+    borderRadius: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 7,
     alignItems: "center",
     justifyContent: "center",
   },

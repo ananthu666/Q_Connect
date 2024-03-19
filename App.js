@@ -25,9 +25,9 @@ export default function App() {
         <Stack.Screen name="Dash" component={DashboardScreen} />
         <Stack.Screen name="MindCare" component={MindCare} />
         <Stack.Screen name="Dr_chat" component={Dr_chat}  options={({ route }) => ({ title: route.params.userName || 'Dr_chat' })}/>
-        <Stack.Screen name="DrSignup" component={DrSignup} />
         <Stack.Screen name="Room" component={Room} />
         <Stack.Screen name="Room_chat" component={Room_chat} />
+        <Stack.Screen name="DrSignup" component={DrSignup} />
       </Stack.Navigator>
     </NavigationContainer>
   ); 

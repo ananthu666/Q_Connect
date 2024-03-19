@@ -29,6 +29,8 @@ const { error } = await supabase.auth.signOut()
         return <MindCare navigation={navigation}/>;
       case 'Rooms':
         return <Room navigation={navigation}/>;
+      case 'Home':
+        return <Home navigation={navigation}/>;
     //   case 'Map':
     //     return <MapTab />;
     //   case 'Notifications':

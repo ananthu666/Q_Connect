@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import supabase from './supa_config';
-
+import { MaterialIcons } from '@expo/vector-icons';
 const Dr_chat = ({ route }) => {
   const flatListRef = useRef();
 
@@ -134,9 +134,14 @@ console.log("sid",s_id, r_id);
           value={newMessage}
           onChangeText={setNewMessage}
           placeholder="Type your message..."
+          onKeyPress={({ nativeEvent }) => {
+            if (nativeEvent.key === 'Enter') {
+              sendMessage();
+            }
+          }}
         />
         <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
-          <Text style={{ color: "white" }}>Send</Text>
+        <MaterialIcons name="send" size={24} color="blue" />
         </TouchableOpacity>
       </View>
     </View>
@@ -174,15 +179,16 @@ const styles = StyleSheet.create({
     flex: 1,
     borderWidth: 1,
     borderColor: "#CCCCCC",
-    borderRadius: 20,
+    borderRadius: 10,
     paddingHorizontal: 15,
+    paddingVertical: 10,
     marginRight: 10,
   },
   sendButton: {
-    backgroundColor: "#007AFF",
+    //backgroundColor: "#fff",
     borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    paddingVertical: 5,
+    paddingHorizontal: 7,
     alignItems: "center",
     justifyContent: "center",
   },
