@@ -11,11 +11,32 @@ function DrLogin({ navigation }) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  
-  
+  const[doctor,setDoctor]=useState([]);
+
+  const fetchDoctor = async () => {
+    try {
+        const { data, error } = await supabase.from('dr_table').select('dr_id');
+        if (error) {
+            console.error('Error fetching doctor:', error.message);
+        } else {
+            const doctorIds = data.map(item => item.dr_id);
+            setDoctor(doctorIds);
+        }
+        }
+    catch (error) {
+
+        console.error('An unexpected error occurred:', error.message);
+    }
+    };
+
+    useEffect(() => {
+        fetchDoctor();
+    }, []);
+  console.log(doctor);
 
   useEffect(() => {
     try {
+        
       const authListener = supabase.auth.onAuthStateChange(
         (event, session) => {
           if (event === "SIGNED_IN") {
@@ -41,7 +62,11 @@ function DrLogin({ navigation }) {
     // Here you can implement your login logic, for simplicity let's just check if fields are empty
     if (!username || !password) {
       setErrorMessage('Please enter both username and password.');
-    } else {
+    }
+    else if (!doctor.includes(username)) {
+        setErrorMessage('Doctor not found');
+        } 
+    else {
       try {
         const { data } = await supabase.auth.signInWithPassword({
           email: username,

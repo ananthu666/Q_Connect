@@ -12,7 +12,28 @@ function LoginPage({ navigation }) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [us, setus] = useState([]);
+  const fetchus = async () => {
+    try {
+        const { data, error } = await supabase.from('user_table').select('user_id');
+        if (error) {
+            console.error('Error fetching user:', error.message);
+        } else {
+            const usIds = data.map(item => item.user_id);
+            setus(usIds);
+        }
+        }
+    catch (error) {
+
+        console.error('An unexpected error occurred:', error.message);
+    }
+    };
+
+    useEffect(() => {
+        fetchus();
+    }, []);
   
+    console.log(us);
   useEffect(() => {
     try {
       const authListener = supabase.auth.onAuthStateChange(
@@ -44,7 +65,11 @@ function LoginPage({ navigation }) {
     // Here you can implement your login logic, for simplicity let's just check if fields are empty
     if (!username || !password) {
       setErrorMessage('Please enter both username and password.');
-    } else {
+    } 
+    else if (!us.includes(username)) {
+      setErrorMessage('user not found');
+      }
+      else {
       try {
         const { data } = await supabase.auth.signInWithPassword({
           email: username,
