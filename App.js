@@ -21,15 +21,15 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Login" component={Loginpage} />
-        <Stack.Screen name="Dr_dash" component={Dr_dash} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="DrSignup" component={DrSignup} />
         <Stack.Screen name="Dash" component={DashboardScreen} />
         <Stack.Screen name="MindCare" component={MindCare} />
         <Stack.Screen name="Dr_chat" component={Dr_chat}  options={({ route }) => ({ title: route.params.userName || 'Dr_chat' })}/>
         <Stack.Screen name="Room" component={Room} />
-        <Stack.Screen name="Room_chat" component={Room_chat} />
+        <Stack.Screen name="Room_chat" component={Room_chat} options={({ route }) => ({ title: route.params.room_name || 'Room_chat' })}/>
         <Stack.Screen name="DrLogin" component={DrLogin} />
+        <Stack.Screen name="Dr_dash" component={Dr_dash} />
       </Stack.Navigator>
     </NavigationContainer>
   ); 
