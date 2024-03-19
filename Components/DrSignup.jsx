@@ -1,44 +1,36 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ScrollView } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-
-function Signup({ navigation }) {
-    const [username, setUsername] = useState('');
+function DrSignup({ navigation }) {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [specialization, setSpecialization] = useState('');
+    const [hospitalName, setHospitalName] = useState('');
+    const [contactNumber, setContactNumber] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleSignup = () => {
         // Here you can implement your signup logic
-        // For simplicity, let's just check if fields are empty and passwords match
-        if (!username || !email || !password || !confirmPassword) {
+        // For simplicity, let's just check if fields are empty
+        if (!name || !email || !specialization || !hospitalName || !contactNumber) {
             setErrorMessage('Please fill in all fields.');
-        } else if (password !== confirmPassword) {
-            setErrorMessage('Passwords do not match.');
         } else {
             // Implement your signup logic here
             console.log('Signing up...');
         }
-
-    };
-    const drSignup = () => {
-        navigation.navigate('DrSignup');
     };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.formContainer}>
-                <Text style={styles.title}>Signup</Text>
+                <Text style={styles.title}>Doctor Signup</Text>
                 <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Username:</Text>
+                    <Text style={styles.label}>Name:</Text>
                     <TextInput
                         style={styles.input}
-                        value={username}
-                        onChangeText={setUsername}
-                        placeholder="Enter your username"
+                        value={name}
+                        onChangeText={setName}
+                        placeholder="Enter your name"
                         placeholderTextColor="#fff"
                     />
                 </View>
@@ -54,30 +46,39 @@ function Signup({ navigation }) {
                     />
                 </View>
                 <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Password:</Text>
+                    <Text style={styles.label}>Specialization:</Text>
                     <TextInput
                         style={styles.input}
-                        value={password}
-                        onChangeText={setPassword}
-                        placeholder="Enter your password"
+                        value={specialization}
+                        onChangeText={setSpecialization}
+                        placeholder="Enter your specialization"
                         placeholderTextColor="#fff"
-                        secureTextEntry
                     />
                 </View>
                 <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Confirm Password:</Text>
+                    <Text style={styles.label}>Hospital Name:</Text>
                     <TextInput
                         style={styles.input}
-                        value={confirmPassword}
-                        onChangeText={setConfirmPassword}
-                        placeholder="Confirm your password"
+                        value={hospitalName}
+                        onChangeText={setHospitalName}
+                        placeholder="Enter hospital name"
                         placeholderTextColor="#fff"
-                        secureTextEntry
+                    />
+                </View>
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Contact Number:</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={contactNumber}
+                        onChangeText={setContactNumber}
+                        placeholder="Enter your contact number"
+                        placeholderTextColor="#fff"
+                        keyboardType="phone-pad"
                     />
                 </View>
                 {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
                 <View style={styles.buttonContainer}>
-                    <Button title="Signup" onPress={handleSignup} color="#FF8911" />
+                    <Button title="Signup" onPress={handleSignup} color="#41C9E2" />
                 </View>
                 <View style={styles.loginLinkContainer}>
                     <TouchableOpacity onPress={() => navigation.navigate('Login')}>
@@ -85,20 +86,15 @@ function Signup({ navigation }) {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={styles.drbtn}>
-                <TouchableOpacity >
-                    <Button title="Dr.Signup" onPress={drSignup} color="#C683D7" />
-                </TouchableOpacity>
-            </View>
         </ScrollView>
     );
 }
 
-export default Signup;
+export default DrSignup;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
@@ -126,23 +122,17 @@ const styles = StyleSheet.create({
         color: '#fff',
     },
     input: {
-        borderWidth: 1,
-        borderColor: 'transparent',
+        //borderWidth: 1,
+        borderColor: 'none',
         borderRadius: 5,
         padding: 8,
         color: '#fff',
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
-    },
+    }, 
     error: {
         color: 'red',
         marginBottom: 10,
         textAlign: 'center',
-    },
-    drbtn: {
-        width: '90%',
-        maxWidth: 400,
-        marginTop: 20,
-        borderRadius: 10,
     },
     buttonContainer: {
         marginTop: 20,
