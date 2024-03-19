@@ -5,7 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Loginpage,Signup,DashboardScreen,MindCare,Dr_chat,Room,Room_chat,DrSignup,DrLogin} from './Components';
+import {Loginpage,Signup,DashboardScreen,MindCare,Dr_chat,Room,Room_chat,DrSignup,DrLogin,Dr_dash} from './Components';
 function SignupPage() {
   return (
     <View style={styles.container}>
@@ -21,6 +21,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Login" component={Loginpage} />
+        <Stack.Screen name="Dr_dash" component={Dr_dash} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="DrSignup" component={DrSignup} />
         <Stack.Screen name="Dash" component={DashboardScreen} />
@@ -29,7 +30,6 @@ export default function App() {
         <Stack.Screen name="Room" component={Room} />
         <Stack.Screen name="Room_chat" component={Room_chat} />
         <Stack.Screen name="DrLogin" component={DrLogin} />
-      
       </Stack.Navigator>
     </NavigationContainer>
   ); 

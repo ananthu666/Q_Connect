@@ -57,7 +57,7 @@ const DoctorList = ({navigation}) => {
                 const { data, error } = await supabase
                     .from('dr_messages')
                     .select('sender_id')
-                    .eq('reciever_id', mid);
+                    .eq('receiver_id', mid);
                 if (error) {
                     console.error('Error fetching client ID:', error.message);
                 } else {
@@ -81,7 +81,7 @@ const DoctorList = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>List of Doctors and Psychologists</Text>
+            <Text style={styles.title}>Patient Registry</Text>
             <View style={styles.doctorList}>
                 {doctors.map((doctor, index) => (
                     <TouchableOpacity 

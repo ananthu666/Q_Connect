@@ -19,11 +19,13 @@ function LoginPage({ navigation }) {
         (event, session) => {
           if (event === "SIGNED_IN") {
             console.log("User signed in successfully");
+           // alert("logged in"); 
+           
             navigation.navigate("Dash");
           }
 
         }
-
+ 
       );
       // Clean up the listener
     }
@@ -48,8 +50,7 @@ function LoginPage({ navigation }) {
           email: username,
           password: password,
         })
-        if (data)
-          alert("logged in");
+        
       }
       catch (e) {
         console.log(e);

@@ -45,11 +45,11 @@ const { error } = await supabase.auth.signOut()
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <Text style={styles.headerText}>Q Dashboard</Text>
         <TouchableOpacity  onPress={handleLogout}>
         <Text style={styles.btn}>Logout</Text>
 
         </TouchableOpacity>
-        <Text style={styles.headerText}>Q Dashboard</Text>
       </View>
       <View style={styles.tabs}>
         <TouchableOpacity
@@ -87,9 +87,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   header: {
-    padding: 20,
+    padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
   headerText: {
     fontSize: 24,
@@ -120,18 +122,19 @@ const styles = StyleSheet.create({
   },
   btn:{
     
-    backgroundColor: 'red',
-    padding: 10,
-    borderRadius: 15,
+    backgroundColor: '#FF9B50',
+    paddingVertical: 6,
+    paddingHorizontal: 8,
+    borderRadius: 10,
     textAlign: 'center',
     flexDirection: 'row',
     alignItems: 'flex-end',
     
     color: 'white',
     fontWeight: 'bold',
-    width: 100,
+    width: 70,
 
-    marginLeft: 300,
+    
     // marginRight: 10,
     
     

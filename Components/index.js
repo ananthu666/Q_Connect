@@ -8,7 +8,7 @@ export {default as Dr_chat} from './Dr_chat';
 export {default as Room} from './Room';
 export {default as Room_chat} from './Room_chat';
 export {default as DrLogin} from './DrLogin';
-
+export {default as Dr_dash} from './Dr_dash';
 
 
 export {default as DrSignup} from './DrSignup';

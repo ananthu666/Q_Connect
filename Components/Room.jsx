@@ -1,16 +1,17 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import { useState,useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, Button } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons'; // Import MaterialIcons for the plus icon
 import supabase from './supa_config';
-
-const RoomList = ({navigation}) => {
+const RoomList = ({ navigation }) => {
+    const [showForm, setShowForm] = useState(false);
+    const [roomName, setRoomName] = useState('');
+    const [roomDescription, setRoomDescription] = useState('');
     const [mid, setmid] = useState("");
-    // Assuming you have an array of chat rooms called 'chatRooms'
-    const chatRooms = [
+    const [chatRooms, setChatRooms] = useState([
         { id: '1', name: 'Room 1' },
         { id: '2', name: 'Room 2' },
         { id: '3', name: 'Room 3' },
-    ];
+    ]);
     useEffect(() => {
         const fetchmyid = async () => {
           try {
@@ -27,11 +28,34 @@ const RoomList = ({navigation}) => {
         };
         fetchmyid();
       }, []);
+    // Function to handle when the plus icon button is clicked
+    const toggleForm = () => {
+        setShowForm(!showForm);
+    };
 
     // Function to handle when a room is clicked
     const handleChat = (roomId) => {
         // Navigate to the chat room with the given ID
         navigation.navigate('Room_chat', {s_id:mid,room_id: roomId});
+    };
+
+
+
+    // Function to handle form submission
+    const handleSubmit = () => {
+        // Create a new room object
+        const newRoom = {
+            id: (Math.random() * 1000).toString(), // Generate a random ID
+            name: roomName,
+            description: roomDescription,
+        };
+
+        // Add the new room to the chatRooms array
+        setChatRooms([...chatRooms, newRoom]);
+
+        // Reset form fields
+        setRoomName('');
+        setRoomDescription('');
     };
 
     // Render item component for each chat room
@@ -43,7 +67,31 @@ const RoomList = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>List of Chat Rooms</Text>
+            <View style={styles.header}>
+                <Text style={styles.title}>List of Chat Rooms</Text>
+                <TouchableOpacity onPress={toggleForm}>
+                    <MaterialIcons name={showForm ? 'remove' : 'add'} size={24} color="black" />
+                </TouchableOpacity>
+            </View>
+
+            {showForm && (
+                <View style={styles.formContainer}>
+                    <TextInput
+                        style={styles.input}
+                        value={roomName}
+                        onChangeText={setRoomName}
+                        placeholder="Room Name"
+                    />
+                    <TextInput
+                        style={styles.input}
+                        value={roomDescription}
+                        onChangeText={setRoomDescription}
+                        placeholder="Room Description"
+                    />
+                    <Button title="Submit" onPress={handleSubmit} />
+                </View>
+            )}
+
             <FlatList
                 data={chatRooms}
                 renderItem={renderItem}
@@ -61,9 +109,27 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#e5ddd5',
     },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
     title: {
         fontSize: 20,
         fontWeight: 'bold',
+    },
+    formContainer: {
+        backgroundColor: '#fff',
+        padding: 10,
+        borderRadius: 5,
+        marginBottom: 10,
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+        padding: 10,
         marginBottom: 10,
     },
     roomList: {

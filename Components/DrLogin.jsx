@@ -18,10 +18,11 @@ function DrLogin({ navigation }) {
         (event, session) => {
           if (event === "SIGNED_IN") {
             console.log("Doctor signed in successfully");
-            navigation.navigate("DoctorDashboard");
+            alert("Doctor logged in");
+            navigation.navigate("Dr_dash");
           }
         }
-      );
+      ); 
       // Clean up the listener
       return () => authListener.data.unsubscribe();
     }
@@ -44,8 +45,9 @@ function DrLogin({ navigation }) {
           email: username,
           password: password,
         })
-        if (data)
-          alert("Doctor logged in");
+        //if (data)
+          
+        
       }
       catch (e) {
         console.log(e);
