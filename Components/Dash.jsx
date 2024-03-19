@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import MindCare from './MindCare';
 import Room from './Room';
-
+import Home from './Home';
 const DashboardScreen = ({navigation}) => {
   const [activeTab, setActiveTab] = useState('Home');
 
@@ -12,6 +12,8 @@ const DashboardScreen = ({navigation}) => {
         return <MindCare navigation={navigation}/>;
       case 'Rooms':
         return <Room navigation={navigation}/>;
+      case 'Home':
+        return <Home navigation={navigation}/>;
     //   case 'Map':
     //     return <MapTab />;
     //   case 'Notifications':
