@@ -1,18 +1,18 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Signup from './index'
 import supabase from './supa_config';
 
-function LoginPage({navigation}) {
+function LoginPage({ navigation }) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
   useEffect(() => {
     const authListener = supabase.auth.onAuthStateChange(
       (event, session) => {
@@ -24,7 +24,8 @@ function LoginPage({navigation}) {
         }
       }
     );
-
+    // Clean up the listener
+    return () => authListener.unsubscribe();
 
   }, []);
 
@@ -33,91 +34,73 @@ function LoginPage({navigation}) {
     setShowPassword(!showPassword);
   };
 
-  const handleLogin = async() => {
+  const handleLogin = async () => {
     // Here you can implement your login logic, for simplicity let's just check if fields are empty
     if (!username || !password) {
       setErrorMessage('Please enter both username and password.');
     } else {
-
-      console.log("hi");
-      try
-      {
+      try {
         const { data } = await supabase.auth.signInWithPassword({
           email: username,
           password: password,
         })
-        if(data)
-        alert("logged in");
-    }
-    catch(e)
-            {
-                console.log(e);
-            }
+        if (data)
+          alert("logged in");
+      }
+      catch (e) {
+        console.log(e);
+      }
     }
   };
 
   return (
     <View style={styles.container}>
-      <View style={{
-        boxShadow: '2px 2px 15px  rgba(0, 0, 0, 0.3)',
-        width: '430px',
-        paddingHorizontal: '20px ',
-        paddingBottom: '30px',
-        paddingTop: '20px',
-        
-        backgroundColor: 'rgba(127,39,255,0.9)'
-      }}>
-        <View style={styles.content}>
-          <Text style={styles.title}>Welcome to our LGBTQ+ Community</Text>
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Username:</Text>
+      <View style={styles.loginBox}>
+        <Text style={styles.title}>Welcome to our LGBTQ+ Community</Text>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Username:</Text>
+          <TextInput
+            style={styles.input}
+            type="text"
+            value={username}
+            onChangeText={(text) => setUsername(text)}
+            placeholder="Username"
+            placeholderTextColor="#fff" // White color
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Password:</Text>
+          <View style={[styles.passwordInputContainer, styles.inputContainer]}>
             <TextInput
               style={styles.input}
-              type="text"
-              value={username}
-              onChangeText={(text) => setUsername(text)}
-              placeholder="Username"
+              type="password"
+              secureTextEntry={!showPassword}
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+              placeholder="Password"
               placeholderTextColor="#fff" // White color
             />
-          </View>
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Password:</Text>
-            <View style={[styles.passwordInputContainer, styles.inputContainer]}>
-              <TextInput
-                style={styles.passwordInput}
-                type="password"
-                secureTextEntry={!showPassword}
-                value={password}
-                onChangeText={(text) => setPassword(text)}
-                placeholder="Password"
-                placeholderTextColor="#fff" // White color
-              />
-              <TouchableOpacity onPress={togglePasswordVisibility} style={styles.iconContainer}>
-                <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="#fff" />
-              </TouchableOpacity>
-            </View>
-          </View>
-          {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
-          <Button title="Login" onPress={handleLogin} />
-          <View style={styles.linksContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-              <Text style={styles.link}>Sign Up</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.link}>Forgot Password?</Text>
+            <TouchableOpacity onPress={togglePasswordVisibility} style={styles.iconContainer}>
+              <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="#fff" />
             </TouchableOpacity>
           </View>
         </View>
+        {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
+        <View style={styles.buttonContainer}>
+          <Button title="Login" onPress={handleLogin} />
+          <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+            <Text style={styles.link}>Sign Up</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.link}>Forgot Password?</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-
     </View>
   );
 }
 
 export default LoginPage;
-
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -126,67 +109,62 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  content: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    maxWidth: 430, // Maximum width for the content
+  loginBox: {
+    width: '90%',
+    maxWidth: 400,
+    backgroundColor: 'rgba(127,39,255,0.9)',
+    borderRadius: 10,
+    padding: 20,
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#fff', // White color
+    color: '#fff',
+    textAlign: 'center',
   },
   label: {
     fontSize: 16,
     marginBottom: 5,
-    color: '#fff', // White color
+    color: '#fff',
   },
   inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    marginBottom: 15,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#fff', // White color
+    borderColor: 'transparent', // Transparent border
+    borderRadius: 5,
     padding: 8,
-    margin: 10,
-    width: 200,
-    color: '#fff', // White color
+    color: '#fff',
+    width: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)', // Semi-transparent background
   },
   passwordInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#fff',
-    padding: 5,
-    margin: 10,
-    width: 200,
   },
   passwordInput: {
     flex: 1,
     color: '#fff',
-    marginRight: 1,
+    padding: 8,
   },
   iconContainer: {
-    marginLeft: 1,
+    position: 'absolute',
+    right: 10,
+    top: 10,
   },
   error: {
     color: 'red',
     marginBottom: 10,
   },
-  linksContainer: {
-    flexDirection: 'row',
+  buttonContainer: {
     marginTop: 20,
-    width: '210',
-    justifyContent: 'space-between',
-    // marginLeft: 70, // Remove marginLeft to center
   },
   link: {
     fontSize: 14,
-    color: '#fff', // White color
-    marginRight: 20,
-    marginLeft: 20,
+    color: '#fff',
+    textAlign: 'center',
+    marginTop: 10,
   },
 });

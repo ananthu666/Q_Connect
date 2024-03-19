@@ -1,9 +1,11 @@
+
+
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Loginpage,Signup,DashboardScreen,MindCare,Dr_chat,Room,Room_chat} from './Components';
+import {Loginpage,Signup,DashboardScreen,MindCare,Dr_chat,Room,Room_chat,DrSignup} from './Components';
 function SignupPage() {
   return (
     <View style={styles.container}>
@@ -23,7 +25,7 @@ export default function App() {
         <Stack.Screen name="Dash" component={DashboardScreen} />
         <Stack.Screen name="MindCare" component={MindCare} />
         <Stack.Screen name="Dr_chat" component={Dr_chat}  options={({ route }) => ({ title: route.params.userName || 'Dr_chat' })}/>
-
+        <Stack.Screen name="DrSignup" component={DrSignup} />
         <Stack.Screen name="Room" component={Room} />
         <Stack.Screen name="Room_chat" component={Room_chat} />
       </Stack.Navigator>
