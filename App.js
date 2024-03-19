@@ -5,7 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Loginpage,Signup,DashboardScreen,MindCare,Dr_chat,Room,Room_chat,DrSignup,DrLogin,DoctorList} from './Components';
+import {Loginpage,Signup,DashboardScreen,MindCare,Dr_chat,Room,Room_chat,DrSignup,DrLogin,Dr_dash} from './Components';
 function SignupPage() {
   return (
     <View style={styles.container}>
