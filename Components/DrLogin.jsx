@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import supabase from './supa_config';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer,CommonActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 function DrLogin({ navigation }) {
@@ -11,6 +11,8 @@ function DrLogin({ navigation }) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  
+  
 
   useEffect(() => {
     try {
