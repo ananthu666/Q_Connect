@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import supabase from './supa_config';
 
 
 function Signup({ navigation }) {
@@ -11,16 +12,38 @@ function Signup({ navigation }) {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSignup = () => {
+    const handleSignup = async() => {
         // Here you can implement your signup logic
         // For simplicity, let's just check if fields are empty and passwords match
         if (!username || !email || !password || !confirmPassword) {
-            setErrorMessage('Please fill in all fields.');
+            alert('Please fill in all fields.');
         } else if (password !== confirmPassword) {
-            setErrorMessage('Passwords do not match.');
+            alert('Passwords do not match.');
         } else {
-            // Implement your signup logic here
-            console.log('Signing up...');
+            try
+            {
+            const { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+              })
+            console.log(data);
+            const { data: user, error: userError } = await supabase
+            .from('user_table')
+            .upsert({
+                user_id: email,
+                username: username,
+                password: password,
+                
+            })
+
+            if (user) {
+                alert("User created successfully");
+                navigation.navigate('Login');
+              }
+            }
+            catch (e) {
+                console.log(e);
+              }
         }
 
     };

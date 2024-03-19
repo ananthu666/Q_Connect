@@ -68,6 +68,8 @@ const DoctorList = ({navigation}) => {
                     >
                         <Text style={styles.doctorUsername}>{doctor.username}</Text>
                         <Text style={styles.doctorSpecialization}>{doctor.specialization}</Text>
+                        <Text style={styles.doctorSpecialization}>{doctor.hospital_name}</Text>
+                        <Text style={styles.doctorSpecialization}>{doctor.contact_number}</Text>
                     </TouchableOpacity>
                 ))}
             </View>

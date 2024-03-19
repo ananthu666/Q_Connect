@@ -14,18 +14,22 @@ function LoginPage({ navigation }) {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
+    try{
     const authListener = supabase.auth.onAuthStateChange(
       (event, session) => {
         if (event === "SIGNED_IN") {
           console.log("User signed in successfully");
           navigation.navigate("Dash");
-        } else if (event === "SIGNED_OUT") {
-          console.log("User signed out");
-        }
+        } 
+        
       }
+    
     );
     // Clean up the listener
-    return () => authListener.unsubscribe();
+    }
+    catch(e){
+      console.log(e);
+    }
 
   }, []);
 
