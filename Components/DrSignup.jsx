@@ -1,24 +1,58 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ScrollView } from 'react-native';
+import supabase from './supa_config';
 
 function DrSignup({ navigation }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [specialization, setSpecialization] = useState('');
     const [hospitalName, setHospitalName] = useState('');
     const [contactNumber, setContactNumber] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSignup = () => {
+    const handleSignup = async () => {
         // Here you can implement your signup logic
         // For simplicity, let's just check if fields are empty
-        if (!name || !email || !specialization || !hospitalName || !contactNumber) {
-            setErrorMessage('Please fill in all fields.');
+        if (!name || !email || !specialization || !hospitalName || !contactNumber || !password) {
+            alert('Please fill in all fields.');
         } else {
-            // Implement your signup logic here
-            console.log('Signing up...');
+            try {
+                // Attempt to sign up the user
+                const { user, session, error } = await supabase.auth.signUp({
+                    email: email,
+                    password: password,
+                });
+    
+                if (error) {
+                    alert(error.message);
+                } else {
+                    // If sign up is successful, add the user to dr_table
+                    const { data, error } = await supabase
+                        .from('dr_table')
+                        .upsert({
+                            dr_id: email,
+                            username: name,
+                            password: password,
+                            specialization: specialization,
+                            hospital_name: hospitalName,
+                            contact_number: contactNumber,
+                        });
+    
+                    if (error) {
+                        setErrorMessage('Error adding user to dr_table.');
+                    } else {
+                        // Redirect to login screen after successful sign up
+                        navigation.navigate("Login");
+                    }
+                }
+            } catch (e) {
+                alert('Error signing up:', e.message);
+                alert('Error signing up. Please try again later.');
+            }
         }
     };
+    
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -62,6 +96,16 @@ function DrSignup({ navigation }) {
                         value={hospitalName}
                         onChangeText={setHospitalName}
                         placeholder="Enter hospital name"
+                        placeholderTextColor="#fff"
+                    />
+                </View>
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Password:</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={password}
+                        onChangeText={setPassword}
+                        placeholder="Enter your password"
                         placeholderTextColor="#fff"
                     />
                 </View>
