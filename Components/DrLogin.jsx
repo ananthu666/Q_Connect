@@ -42,7 +42,7 @@ function DrLogin({ navigation }) {
           if (event === "SIGNED_IN") {
             console.log("Doctor signed in successfully");
             alert("Doctor logged in");
-            navigation.push("Dr_dash");
+            navigation.navigate("Dr_dash");
           }
         }
       ); 
@@ -117,7 +117,7 @@ function DrLogin({ navigation }) {
         {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
         <View style={styles.buttonContainer}>
           <Button title="Login" onPress={handleLogin} color="#FF3EA5" />
-          <TouchableOpacity onPress={() => navigation.push('DrSignup')}>
+          <TouchableOpacity onPress={() => navigation.navigate('DrSignup')}>
             <Text style={styles.link}>Doctor Sign Up</Text>
           </TouchableOpacity>
         </View>

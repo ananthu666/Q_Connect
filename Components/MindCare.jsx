@@ -52,7 +52,7 @@ const DoctorList = ({navigation}) => {
     // Function to handle chat initiation
     const handleChat = (doctor) => {
         
-        navigation.push('Dr_chat', { s_id: mid , r_id: doctor.dr_id,userName:doctor.username});
+        navigation.navigate('Dr_chat', { s_id: mid , r_id: doctor.dr_id,userName:doctor.username});
     };
     
 
@@ -85,10 +85,10 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: 'center',
-        fontSize: 20,
+        fontSize: 25,
         fontWeight: 'bold',
         marginBottom: 10,
-        color: '#075e54', // WhatsApp title color
+        color: '#31363F', // WhatsApp title color
     },
     doctorList: {
         marginTop: 10,

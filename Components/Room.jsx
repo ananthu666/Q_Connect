@@ -55,11 +55,11 @@ const RoomList = ({ navigation }) => {
 
   // Function to handle when a room is clicked
   
-    // push to the chat room with the given ID
+    // navigate to the chat room with the given ID
     // Function to handle when a room is clicked
     const handleChat = (roomId, roomName) => {
       console.log("helloworld", roomName);
-      navigation.push("Room_chat", {
+      navigation.navigate("Room_chat", {
         s_id: mid,
         room_id: roomId,
         room_name: roomName,
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: "bold",
   },
   formContainer: {

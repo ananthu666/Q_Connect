@@ -76,7 +76,7 @@ const DoctorList = ({navigation}) => {
     // Function to handle chat initiation
     const handleChat = (doctor) => {
         
-        navigation.push('Dr_chat', { s_id: mid , r_id: doctor.user_id,userName:doctor.username});
+        navigation.navigate('Dr_chat', { s_id: mid , r_id: doctor.user_id,userName:doctor.username});
     };
     
 

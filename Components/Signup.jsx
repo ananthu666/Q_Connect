@@ -38,7 +38,7 @@ function Signup({ navigation }) {
 
             if (user) {
                 alert("User created successfully");
-                navigation.push('Login');
+                navigation.navigate('Login');
               }
             }
             catch (e) {
@@ -48,7 +48,7 @@ function Signup({ navigation }) {
 
     };
     const drSignup = () => {
-        navigation.push('DrSignup');
+        navigation.navigate('DrSignup');
     };
 
     return (
@@ -103,7 +103,7 @@ function Signup({ navigation }) {
                     <Button title="Signup" onPress={handleSignup} color="#FF8911" />
                 </View>
                 <View style={styles.loginLinkContainer}>
-                    <TouchableOpacity onPress={() => navigation.push('Login')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                         <Text style={styles.link}>Already have an account? Login</Text>
                     </TouchableOpacity>
                 </View>

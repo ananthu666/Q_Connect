@@ -43,7 +43,7 @@ function DrSignup({ navigation }) {
                         setErrorMessage('Error adding user to dr_table.');
                     } else {
                         // Redirect to login screen after successful sign up
-                        navigation.push("Login");
+                        navigation.navigate("Login");
                     }
                 }
             } catch (e) {
@@ -115,7 +115,7 @@ function DrSignup({ navigation }) {
                     <Button title="Signup" onPress={handleSignup} color="#41C9E2" />
                 </View>
                 <View style={styles.loginLinkContainer}>
-                    <TouchableOpacity onPress={() => navigation.push('DrLogin')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('DrLogin')}>
                         <Text style={styles.link}>Already have an account? Login</Text>
                     </TouchableOpacity>
                 </View>
