@@ -52,13 +52,13 @@ const DoctorList = ({navigation}) => {
     // Function to handle chat initiation
     const handleChat = (doctor) => {
         
-        navigation.navigate('Dr_chat', { s_id: mid , r_id: doctor.dr_id,userName:doctor.username});
+        navigation.push('Dr_chat', { s_id: mid , r_id: doctor.dr_id,userName:doctor.username});
     };
     
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>List of Doctors and Psychologists</Text>
+            <Text style={styles.title}>Doctor listing</Text>
             <View style={styles.doctorList}>
                 {doctors.map((doctor, index) => (
                     <TouchableOpacity 
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#e5ddd5', // WhatsApp background color
     },
     title: {
+        textAlign: 'center',
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 10,

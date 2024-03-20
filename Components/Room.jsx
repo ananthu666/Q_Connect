@@ -55,11 +55,11 @@ const RoomList = ({ navigation }) => {
 
   // Function to handle when a room is clicked
   
-    // Navigate to the chat room with the given ID
+    // push to the chat room with the given ID
     // Function to handle when a room is clicked
     const handleChat = (roomId, roomName) => {
       console.log("helloworld", roomName);
-      navigation.navigate("Room_chat", {
+      navigation.push("Room_chat", {
         s_id: mid,
         room_id: roomId,
         room_name: roomName,
@@ -106,7 +106,7 @@ const RoomList = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>List of Chat Rooms</Text>
+        <Text style={styles.title}>Chat Space</Text>
         <TouchableOpacity onPress={toggleForm}>
           <MaterialIcons
             name={showForm ? "remove" : "add"}
@@ -156,8 +156,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 10,
+    paddingLeft: 10,
   },
   title: {
+    textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
   },

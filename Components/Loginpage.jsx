@@ -42,7 +42,7 @@ function LoginPage({ navigation }) {
             console.log("User signed in successfully");
            // alert("logged in"); 
            
-            navigation.navigate("Dash");
+            navigation.push("Dash");
           }
 
         }
@@ -118,12 +118,12 @@ function LoginPage({ navigation }) {
         {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
         <View style={styles.buttonContainer}>
           <Button title="Login" onPress={handleLogin} />
-          <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+          <TouchableOpacity onPress={() => navigation.push('Signup')}>
             <Text style={styles.link}>Sign Up</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.links, { backgroundColor: 'black' }]} >
-            <Button title="Dr Login" color='#FF3EA5'  onPress={() => navigation.navigate('DrLogin')}/>
+            <Button title="Dr Login" color='#FF3EA5'  onPress={() => navigation.push('DrLogin')}/>
           </TouchableOpacity>
 
         </View>

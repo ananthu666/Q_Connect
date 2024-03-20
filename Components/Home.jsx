@@ -46,6 +46,7 @@ const NewsScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.head}>Breaking Stories</Text>
       <NewsList newsData={newsData} onPress={handleNewsPress} />
     </View>
   );
@@ -62,6 +63,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#fff',
     borderRadius: 10,
+   backgroundColor: '#ACE2E1',
     padding: 20,
     marginBottom: 10,
     elevation: 2,
@@ -70,6 +72,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
+  },
+  head:{
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#31363F',
+    textAlign: 'center',
   },
   link: {
     fontSize: 16,

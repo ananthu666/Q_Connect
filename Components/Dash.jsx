@@ -16,7 +16,7 @@ const DashboardScreen = ({ navigation }) => {
       (event, session) => {
         if (event === "SIGNED_OUT") {
           alert("User logout  successfully");
-          navigation.navigate("Login");
+          navigation.push("Login");
         }
       }
     );
