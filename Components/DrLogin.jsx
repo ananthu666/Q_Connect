@@ -42,6 +42,17 @@ function DrLogin({ navigation }) {
           if (event === "SIGNED_IN") {
             console.log("Doctor signed in successfully");
             alert("Doctor logged in");
+            // clear stack
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [
+                  { name: 'Login' }, // Assuming 'Login' is your main login screen
+                  { name: 'DrLogin' },
+                ],
+              })
+            );
+              
             navigation.navigate("Dr_dash");
           }
         }

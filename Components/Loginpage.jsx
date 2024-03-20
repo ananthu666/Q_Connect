@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity ,CommonActi
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Signup from './index'
+
 import supabase from './supa_config';
 
 function LoginPage({ navigation }) {
@@ -41,7 +41,14 @@ function LoginPage({ navigation }) {
           if (event === "SIGNED_IN") {
             console.log("User signed in successfully");
            // alert("logged in"); 
-           
+           navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [
+                { name: 'Login' },
+              ],
+            })
+          );
             navigation.navigate("Dash");
           }
 
