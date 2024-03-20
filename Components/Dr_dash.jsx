@@ -72,7 +72,7 @@ const DoctorList = ({navigation}) => {
             fetchClientId();
         }
     }, [mid]);
-      console.log("cid",cid);
+      
     // Function to handle chat initiation
     const handleChat = (doctor) => {
         
